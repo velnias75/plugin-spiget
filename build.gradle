@@ -1,0 +1,56 @@
+/*
+ * Add to your build.gradle-dependencies:
+ *
+ * implementation(project(path: ':spiget', configuration: 'shadow')) {
+ *		exclude group:'dev.derklaro.spiget'
+ *	}
+ *	
+ *	shadow(project(':spiget'))
+ */
+
+plugins {
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+apply plugin: 'java-library'
+
+archivesBaseName = 'spiget'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
+dependencies {
+
+	implementation("dev.derklaro.spiget:http-java8:${project.spiget_version}")
+	
+	shadow("dev.derklaro.spiget:http-java8:${project.spiget_version}") 
+	
+	implementation("dev.derklaro.spiget:mapper-gson:${project.spiget_version}")	
+	shadow("dev.derklaro.spiget:mapper-gson:${project.spiget_version}")
+
+}
+
+shadowJar {
+
+	archiveClassifier.set('')
+    
+    relocate 'dev.derklaro.spiget', 'de.rangun.spiget.shadowed.dev.derklaro.spiget'
+
+    exclude 'META-INF/**'
+    exclude 'license.txt'
+
+    minimize()
+}
+
+assemble {
+	dependsOn shadowJar
+}
