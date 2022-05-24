@@ -70,7 +70,7 @@ public final class PluginClient {
 
 			} else if (currentVersion.endsWith("-SNAPSHOT")) {
 
-				final String verMsg1 = "You are using a development version.";
+				final String verMsg1 = "You are using a development version: " + currentVersion;
 				final String verMsg2 = "Please report any issues here: "
 						+ resourceDetails.links().get("alternativeSupport");
 
