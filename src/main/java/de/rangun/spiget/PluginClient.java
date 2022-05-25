@@ -20,6 +20,7 @@
 package de.rangun.spiget;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletionException;
 import java.util.logging.Logger;
@@ -87,6 +88,6 @@ public final class PluginClient {
 	}
 
 	public List<String> getJoinMessages() {
-		return joinMessages;
+		return Collections.unmodifiableList(joinMessages);
 	}
 }
