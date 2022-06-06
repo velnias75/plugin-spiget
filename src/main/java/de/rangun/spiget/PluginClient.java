@@ -31,10 +31,10 @@ import dev.derklaro.spiget.mapper.gson.GsonMapper;
 import dev.derklaro.spiget.model.Resource;
 import dev.derklaro.spiget.model.Version;
 
-public final class PluginClient {
+public final class PluginClient implements MessageRetriever {
 
 	private final int spigotId;
-	private final Logger logger;
+	private final Logger logger; // NOPMD by heiko on 06.06.22, 06:28
 
 	private final String currentVersion;
 	private final String pluginName;
@@ -58,7 +58,10 @@ public final class PluginClient {
 			final Version latestVersion = spigetClient.latestResourceVersion().resourceId(spigotId).exec().join();
 			final Resource resourceDetails = spigetClient.resourceDetails().resourceId(spigotId).exec().join();
 
-			if (!currentVersion.endsWith("-SNAPSHOT") && !currentVersion.equals(latestVersion.name())) {
+			if (!currentVersion.endsWith("-SNAPSHOT") && !currentVersion.equals(latestVersion.name())) { // NOPMD by
+																											// heiko on
+																											// 06.06.22,
+																											// 06:29
 
 				final String verMsg1 = "A newer version of " + pluginName + " is available: " + latestVersion.name();
 				final String verMsg2 = "Download: " + resourceDetails.file().externalUrl();
@@ -87,6 +90,7 @@ public final class PluginClient {
 		}
 	}
 
+	@Override
 	public List<String> getJoinMessages() {
 		return Collections.unmodifiableList(joinMessages);
 	}
