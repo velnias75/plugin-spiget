@@ -36,6 +36,8 @@ dependencies {
 	
 	implementation("dev.derklaro.spiget:mapper-gson:${project.spiget_version}")	
 	shadow("dev.derklaro.spiget:mapper-gson:${project.spiget_version}")
+	
+	compileOnly("com.google.guava:guava:${project.guava_version}")
 
 }
 

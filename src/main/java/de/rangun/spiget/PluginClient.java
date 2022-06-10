@@ -20,10 +20,11 @@
 package de.rangun.spiget;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletionException;
 import java.util.logging.Logger;
+
+import com.google.common.collect.ImmutableList;
 
 import dev.derklaro.spiget.SpigetClient;
 import dev.derklaro.spiget.http.java8.Java8SpigetClient;
@@ -40,7 +41,7 @@ public final class PluginClient implements MessageRetriever {
 	private final String pluginName;
 
 	private final SpigetClient spigetClient = new Java8SpigetClient(GsonMapper.INSTANCE);
-	private List<String> joinMessages = new ArrayList<>(2);
+	private List<String> joinMessages = new ArrayList<>(3);
 
 	public PluginClient(final int spigotId, final String currentVersion, final String pluginName, final Logger logger) {
 
@@ -75,14 +76,17 @@ public final class PluginClient implements MessageRetriever {
 			} else if (currentVersion.endsWith("-SNAPSHOT")) {
 
 				final String verMsg1 = "You are using a development version: " + currentVersion;
-				final String verMsg2 = "Please report any issues here: "
+				final String verMsg2 = "Latest stable version: " + latestVersion.name();
+				final String verMsg3 = "Please report any issues here: "
 						+ resourceDetails.links().get("alternativeSupport");
 
 				logger.warning(verMsg1);
 				logger.warning(verMsg2);
+				logger.warning(verMsg3);
 
 				joinMessages.add(verMsg1);
 				joinMessages.add(verMsg2);
+				joinMessages.add(verMsg3);
 			}
 
 		} catch (CompletionException e) {
@@ -92,6 +96,6 @@ public final class PluginClient implements MessageRetriever {
 
 	@Override
 	public List<String> getJoinMessages() {
-		return Collections.unmodifiableList(joinMessages);
+		return ImmutableList.copyOf(joinMessages);
 	}
 }
