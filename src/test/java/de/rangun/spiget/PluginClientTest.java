@@ -42,7 +42,7 @@ final class PluginClientTest {
 			stableClient.checkVersion();
 		});
 
-		assertEquals(10, stableClient.getJoinMessages().size());
+		assertEquals(2, stableClient.getJoinMessages().size());
 	}
 
 }

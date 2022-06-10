@@ -66,5 +66,11 @@ assemble {
 }
 
 test {
+	
+	mustRunAfter(jar)
+	dependsOn(shadowJar)
+	
+	classpath = project.sourceSets.test.output + configurations.testRuntimeClasspath + files(shadowJar.archiveFile)
+	
 	useJUnitPlatform()
 }
