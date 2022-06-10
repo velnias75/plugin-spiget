@@ -57,7 +57,36 @@ shadowJar {
 
     exclude 'META-INF/**'
     exclude 'license.txt'
-
+    
+    // excluding to get the shadowed jar smaller
+    // https://github.com/derklaro/java-spiget-client/issues/11#issuecomment-1152076799
+    
+    exclude 'dev/derklaro/spiget/request/author/*'
+    exclude 'dev/derklaro/spiget/request/category/*'
+    exclude 'dev/derklaro/spiget/request/status/*'
+    exclude 'dev/derklaro/spiget/request/webhook/*'
+    exclude 'dev/derklaro/spiget/request/resource/F*'
+    exclude 'dev/derklaro/spiget/request/resource/Las*'
+    exclude 'dev/derklaro/spiget/request/resource/N*'
+    exclude 'dev/derklaro/spiget/request/resource/P*'
+    exclude 'dev/derklaro/spiget/request/resource/ResourceA*'
+    exclude 'dev/derklaro/spiget/request/resource/ResourceDo*'
+    exclude 'dev/derklaro/spiget/request/resource/ResourceL*'
+    exclude 'dev/derklaro/spiget/request/resource/ResourceR*'
+    exclude 'dev/derklaro/spiget/request/resource/ResourceS*'
+    exclude 'dev/derklaro/spiget/request/resource/ResourceU*'
+    exclude 'dev/derklaro/spiget/request/resource/ResourceVersionD*'
+    exclude 'dev/derklaro/spiget/request/resource/ResourceVersions*'
+    exclude 'dev/derklaro/spiget/request/resource/V*'
+    exclude 'dev/derklaro/spiget/data/*'
+    exclude 'dev/derklaro/spiget/model/A*'
+    exclude 'dev/derklaro/spiget/model/C*'
+    exclude 'dev/derklaro/spiget/model/Rev*'
+    exclude 'dev/derklaro/spiget/model/S*'
+    exclude 'dev/derklaro/spiget/model/U*'
+    exclude 'dev/derklaro/spiget/model/VersionR*'
+    exclude 'dev/derklaro/spiget/model/W*'
+    
     minimize()
 }
 
