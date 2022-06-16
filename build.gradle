@@ -53,8 +53,8 @@ dependencies {
     
     testImplementation("dev.derklaro.spiget:http-java8:${project.spiget_version}")
 	testImplementation("dev.derklaro.spiget:mapper-gson:${project.spiget_version}")
-    
-	testRuntimeOnly("net.md-5:bungeecord-chat:${bungeecord_chat_version}")
+ 
+	testImplementation("net.md-5:bungeecord-chat:${bungeecord_chat_version}")
     testRuntimeOnly("com.google.guava:guava:${project.guava_version}")
 
 }

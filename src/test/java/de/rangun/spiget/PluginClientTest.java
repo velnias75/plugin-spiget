@@ -39,10 +39,9 @@ final class PluginClientTest {
 	@Test
 	void testStableClient() { // NOPMD by heiko on 11.06.22, 08:39
 
-		final PluginClient stableClient = new PluginClient(102026, "0.0", "Test-Plugin", // NOPMD by heiko on 11.06.22,
-																							// 08:35
-				Logger.getLogger(PluginClientTest.class.getName()));
-
+		final Logger logger = Logger.getLogger(PluginClientTest.class.getName());
+		final PluginClient stableClient = new PluginClient(102026, "0.0", "Test-Plugin", logger); // NOPMD by heiko on
+																									// 16.06.22, 05:56
 		assertDoesNotThrow(() -> {
 			stableClient.checkVersion();
 		});
@@ -50,8 +49,9 @@ final class PluginClientTest {
 		assertTrue(stableClient.getJoinMessages().size() == 2 || stableClient.getJoinMessages().size() == 0,
 				"Exactly 0 or 2 messages got produced");
 
-		assertTrue(stableClient.getJoinMessages(true).size() == 2 || stableClient.getJoinMessages(true).size() == 0,
-				"Exactly 0 or 2 TextComponent lists got produced");
+		assertDoesNotThrow(() -> {
+			stableClient.sendJoinComponents((msg) -> {
+			});
+		});
 	}
-
 }

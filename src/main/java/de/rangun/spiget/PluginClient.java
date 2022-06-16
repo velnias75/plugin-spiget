@@ -22,6 +22,7 @@ package de.rangun.spiget;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletionException;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import com.google.common.collect.ImmutableList;
@@ -31,6 +32,7 @@ import dev.derklaro.spiget.http.java8.Java8SpigetClient;
 import dev.derklaro.spiget.mapper.gson.GsonMapper;
 import dev.derklaro.spiget.model.Resource;
 import dev.derklaro.spiget.model.Version;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
@@ -120,7 +122,42 @@ public final class PluginClient implements MessageRetriever {
 	}
 
 	@Override
-	public List<List<TextComponent>> getJoinMessages(final boolean clickableLinks) {
-		return joinComponents;
+	public void sendJoinComponents(final Consumer<TextComponent[]> consumer) {
+
+		if (joinComponents.isEmpty()) {
+			return;
+		}
+
+		final TextComponent pre = new TextComponent("[" + pluginName + ": ");
+		pre.setColor(ChatColor.YELLOW);
+		pre.setItalic(true);
+
+		final TextComponent suf = new TextComponent("]");
+		suf.setColor(ChatColor.YELLOW);
+		suf.setItalic(true);
+
+		final List<TextComponent> msgFormatted = new ArrayList<>();
+		final List<TextComponent> msg = new ArrayList<>();
+
+		for (final List<TextComponent> jml : joinComponents) {
+
+			msg.add(pre);
+
+			for (final TextComponent jmc : jml) {
+
+				jmc.setColor(ChatColor.YELLOW);
+				jmc.setItalic(true);
+
+				msgFormatted.add(jmc);
+			}
+
+			msg.addAll(msgFormatted);
+			msg.add(suf);
+
+			consumer.accept(msg.toArray(new TextComponent[0])); // NOPMD by heiko on 16.06.22, 05:45
+
+			msgFormatted.clear();
+			msg.clear();
+		}
 	}
 }
