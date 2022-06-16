@@ -20,10 +20,13 @@
 package de.rangun.spiget;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.logging.Logger;
 
 import org.junit.jupiter.api.Test;
+
+import net.md_5.bungee.api.ChatColor;
 
 /**
  * @author heiko
@@ -45,9 +48,14 @@ final class PluginClientTest {
 			stableClient.checkVersion();
 		});
 
+		assertThrows(IllegalArgumentException.class, () -> {
+			stableClient.sendJoinComponents((msg) -> {
+			}, null);
+		});
+
 		assertDoesNotThrow(() -> {
 			stableClient.sendJoinComponents((msg) -> {
-			});
+			}, ChatColor.YELLOW);
 		});
 	}
 }

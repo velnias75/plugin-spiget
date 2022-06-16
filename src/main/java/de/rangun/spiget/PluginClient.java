@@ -109,18 +109,22 @@ public final class PluginClient implements MessageRetriever {
 	}
 
 	@Override
-	public void sendJoinComponents(final Consumer<TextComponent[]> consumer) {
+	public void sendJoinComponents(final Consumer<TextComponent[]> consumer, final ChatColor color) {
+
+		if (color == null) {
+			throw new IllegalArgumentException("Please provide a chat color");
+		}
 
 		if (joinComponents.isEmpty()) {
 			return;
 		}
 
 		final TextComponent pre = new TextComponent("[" + pluginName + ": ");
-		pre.setColor(ChatColor.YELLOW);
+		pre.setColor(color);
 		pre.setItalic(true);
 
 		final TextComponent suf = new TextComponent("]");
-		suf.setColor(ChatColor.YELLOW);
+		suf.setColor(color);
 		suf.setItalic(true);
 
 		final List<TextComponent> msgFormatted = new ArrayList<>();
@@ -132,7 +136,7 @@ public final class PluginClient implements MessageRetriever {
 
 			for (final TextComponent jmc : jml) {
 
-				jmc.setColor(ChatColor.YELLOW);
+				jmc.setColor(color);
 				jmc.setItalic(true);
 
 				msgFormatted.add(jmc);

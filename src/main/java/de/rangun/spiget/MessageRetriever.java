@@ -21,6 +21,7 @@ package de.rangun.spiget;
 
 import java.util.function.Consumer;
 
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 
 /**
@@ -29,5 +30,21 @@ import net.md_5.bungee.api.chat.TextComponent;
  */
 public interface MessageRetriever {
 
-	void sendJoinComponents(Consumer<TextComponent[]> consumer);
+	/**
+	 * <em>Prepare messages for sending to client.</em> <br>
+	 * <br>
+	 * <b>Example:</b><br>
+	 * <br>
+	 * <code>private final MessageRetriever msgs;
+	 * <br><br>
+	 * msgs.sendJoinComponents((msg) -> {
+	 *			event.getPlayer().spigot().sendMessage(msg);
+	 *		}, ChatColor.YELLOW);</code>
+	 * 
+	 * @param consumer consumer of prepared messages
+	 * @param color    ChatColor of the messages
+	 * @throws IllegalArgumentException if color is null
+	 */
+	void sendJoinComponents(Consumer<TextComponent[]> consumer, ChatColor color);
+
 }
