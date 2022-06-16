@@ -79,6 +79,7 @@ public final class PluginClient implements MessageRetriever {
 
 				final TextComponent urlComponent = new TextComponent(url);
 				urlComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
+				urlComponent.setUnderlined(true);
 
 				joinComponents.add(ImmutableList.of(new TextComponent(verMsg1)));
 				joinComponents.add(ImmutableList.of(new TextComponent(verMsg2), urlComponent));
@@ -102,6 +103,7 @@ public final class PluginClient implements MessageRetriever {
 				joinComponents.add(ImmutableList.of(new TextComponent(verMsg2)));
 
 				final TextComponent urlComponent = new TextComponent(url);
+				urlComponent.setUnderlined(true);
 				urlComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
 
 				joinComponents.add(ImmutableList.of(new TextComponent(verMsg3), urlComponent));
