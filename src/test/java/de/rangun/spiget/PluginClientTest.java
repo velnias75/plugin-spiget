@@ -49,6 +49,9 @@ final class PluginClientTest {
 
 		assertTrue(stableClient.getJoinMessages().size() == 2 || stableClient.getJoinMessages().size() == 0,
 				"Exactly 0 or 2 messages got produced");
+
+		assertTrue(stableClient.getJoinMessages(true).size() == 2 || stableClient.getJoinMessages(true).size() == 0,
+				"Exactly 0 or 2 TextComponent lists got produced");
 	}
 
 }

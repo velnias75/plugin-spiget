@@ -21,10 +21,15 @@ package de.rangun.spiget;
 
 import java.util.List;
 
+import net.md_5.bungee.api.chat.TextComponent;
+
 /**
  * @author heiko
  *
  */
 public interface MessageRetriever {
+
 	List<String> getJoinMessages();
+
+	List<List<TextComponent>> getJoinMessages(boolean clickableLinks);
 }

@@ -31,6 +31,8 @@ import dev.derklaro.spiget.http.java8.Java8SpigetClient;
 import dev.derklaro.spiget.mapper.gson.GsonMapper;
 import dev.derklaro.spiget.model.Resource;
 import dev.derklaro.spiget.model.Version;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public final class PluginClient implements MessageRetriever {
 
@@ -41,7 +43,9 @@ public final class PluginClient implements MessageRetriever {
 	private final String pluginName;
 
 	private final SpigetClient spigetClient = new Java8SpigetClient(GsonMapper.INSTANCE);
+
 	private List<String> joinMessages = new ArrayList<>(3);
+	private List<List<TextComponent>> joinComponents = new ArrayList<>(3);
 
 	public PluginClient(final int spigotId, final String currentVersion, final String pluginName, final Logger logger) {
 
@@ -63,30 +67,44 @@ public final class PluginClient implements MessageRetriever {
 																											// heiko on
 																											// 06.06.22,
 																											// 06:29
-
+				final String url = resourceDetails.file().externalUrl();
 				final String verMsg1 = "A newer version of " + pluginName + " is available: " + latestVersion.name();
-				final String verMsg2 = "Download: " + resourceDetails.file().externalUrl();
+				final String verMsg2 = "Download: "; // NOPMD by heiko on 16.06.22, 04:35
 
 				logger.warning(verMsg1);
-				logger.warning(verMsg2);
+				logger.warning(verMsg2 + url); // NOPMD by heiko on 16.06.22, 04:34
 
 				joinMessages.add(verMsg1);
-				joinMessages.add(verMsg2);
+				joinMessages.add(verMsg2 + url);
+
+				final TextComponent urlComponent = new TextComponent(url);
+				urlComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
+
+				joinComponents.add(ImmutableList.of(new TextComponent(verMsg1)));
+				joinComponents.add(ImmutableList.of(new TextComponent(verMsg2), urlComponent));
 
 			} else if (currentVersion.endsWith("-SNAPSHOT")) {
 
+				final String url = resourceDetails.links().get("alternativeSupport");
 				final String verMsg1 = "You are using a development version: " + currentVersion;
 				final String verMsg2 = "Latest stable version: " + latestVersion.name();
-				final String verMsg3 = "Please report any issues here: "
-						+ resourceDetails.links().get("alternativeSupport");
+				final String verMsg3 = "Please report any issues here: "; // NOPMD by heiko on 16.06.22, 04:35
 
 				logger.warning(verMsg1);
 				logger.warning(verMsg2);
-				logger.warning(verMsg3);
+				logger.warning(verMsg3 + url); // NOPMD by heiko on 16.06.22, 04:36
 
 				joinMessages.add(verMsg1);
 				joinMessages.add(verMsg2);
-				joinMessages.add(verMsg3);
+				joinMessages.add(verMsg3 + url);
+
+				joinComponents.add(ImmutableList.of(new TextComponent(verMsg1)));
+				joinComponents.add(ImmutableList.of(new TextComponent(verMsg2)));
+
+				final TextComponent urlComponent = new TextComponent(url);
+				urlComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
+
+				joinComponents.add(ImmutableList.of(new TextComponent(verMsg3), urlComponent));
 			}
 
 		} catch (CompletionException e) {
@@ -97,5 +115,10 @@ public final class PluginClient implements MessageRetriever {
 	@Override
 	public List<String> getJoinMessages() {
 		return ImmutableList.copyOf(joinMessages);
+	}
+
+	@Override
+	public List<List<TextComponent>> getJoinMessages(final boolean clickableLinks) {
+		return joinComponents;
 	}
 }
