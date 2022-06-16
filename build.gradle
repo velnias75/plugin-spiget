@@ -46,7 +46,9 @@ dependencies {
 	
 	shadow("dev.derklaro.spiget:mapper-gson:${project.spiget_version}")
 	
-	compileOnly("net.md-5:bungeecord-chat:${bungeecord_chat_version}")
+	compileOnly("net.md-5:bungeecord-chat:${bungeecord_chat_version}") {
+		exclude group:"org.hamcrest",  module:"hamcrest-core"
+	}
 	
 	testImplementation("org.junit.jupiter:junit-jupiter-api:${project.junit_version}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${project.junit_version}")
