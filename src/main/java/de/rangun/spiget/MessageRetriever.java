@@ -19,7 +19,6 @@
 
 package de.rangun.spiget;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import net.md_5.bungee.api.chat.TextComponent;
@@ -29,8 +28,6 @@ import net.md_5.bungee.api.chat.TextComponent;
  *
  */
 public interface MessageRetriever {
-
-	List<String> getJoinMessages();
 
 	void sendJoinComponents(Consumer<TextComponent[]> consumer);
 }

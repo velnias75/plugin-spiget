@@ -20,7 +20,6 @@
 package de.rangun.spiget;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.logging.Logger;
 
@@ -45,9 +44,6 @@ final class PluginClientTest {
 		assertDoesNotThrow(() -> {
 			stableClient.checkVersion();
 		});
-
-		assertTrue(stableClient.getJoinMessages().size() == 2 || stableClient.getJoinMessages().size() == 0,
-				"Exactly 0 or 2 messages got produced");
 
 		assertDoesNotThrow(() -> {
 			stableClient.sendJoinComponents((msg) -> {

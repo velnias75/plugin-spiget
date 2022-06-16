@@ -46,7 +46,6 @@ public final class PluginClient implements MessageRetriever {
 
 	private final SpigetClient spigetClient = new Java8SpigetClient(GsonMapper.INSTANCE);
 
-	private List<String> joinMessages = new ArrayList<>(3);
 	private List<List<TextComponent>> joinComponents = new ArrayList<>(3);
 
 	public PluginClient(final int spigotId, final String currentVersion, final String pluginName, final Logger logger) {
@@ -68,16 +67,13 @@ public final class PluginClient implements MessageRetriever {
 			if (!currentVersion.endsWith("-SNAPSHOT") && !currentVersion.equals(latestVersion.name())) { // NOPMD by
 																											// heiko on
 																											// 06.06.22,
-																											// 06:29
+																											// // 06:29
 				final String url = resourceDetails.file().externalUrl();
 				final String verMsg1 = "A newer version of " + pluginName + " is available: " + latestVersion.name();
 				final String verMsg2 = "Download: "; // NOPMD by heiko on 16.06.22, 04:35
 
 				logger.warning(verMsg1);
 				logger.warning(verMsg2 + url); // NOPMD by heiko on 16.06.22, 04:34
-
-				joinMessages.add(verMsg1);
-				joinMessages.add(verMsg2 + url);
 
 				final TextComponent urlComponent = new TextComponent(url);
 				urlComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
@@ -97,10 +93,6 @@ public final class PluginClient implements MessageRetriever {
 				logger.warning(verMsg2);
 				logger.warning(verMsg3 + url); // NOPMD by heiko on 16.06.22, 04:36
 
-				joinMessages.add(verMsg1);
-				joinMessages.add(verMsg2);
-				joinMessages.add(verMsg3 + url);
-
 				joinComponents.add(ImmutableList.of(new TextComponent(verMsg1)));
 				joinComponents.add(ImmutableList.of(new TextComponent(verMsg2)));
 
@@ -114,11 +106,6 @@ public final class PluginClient implements MessageRetriever {
 		} catch (CompletionException e) {
 			logger.warning("Couldn't retrieve latest version.");
 		}
-	}
-
-	@Override
-	public List<String> getJoinMessages() {
-		return ImmutableList.copyOf(joinMessages);
 	}
 
 	@Override
