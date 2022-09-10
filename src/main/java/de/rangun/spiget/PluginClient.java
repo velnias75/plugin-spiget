@@ -67,7 +67,7 @@ public final class PluginClient implements MessageRetriever {
 			if (!currentVersion.endsWith("-SNAPSHOT") && !currentVersion.equals(latestVersion.name())) { // NOPMD by
 																											// heiko on
 																											// 06.06.22,
-																											// // 06:29
+																											// 06:29
 				final String url = resourceDetails.file().externalUrl();
 				final String verMsg1 = "A newer version of " + pluginName + " is available: " + latestVersion.name();
 				final String verMsg2 = "Download: "; // NOPMD by heiko on 16.06.22, 04:35
@@ -104,7 +104,10 @@ public final class PluginClient implements MessageRetriever {
 			}
 
 		} catch (CompletionException e) {
-			logger.warning("Couldn't retrieve latest version.");
+
+			if (spigotId >= 0) {
+				logger.warning("Couldn't retrieve latest version.");
+			}
 		}
 	}
 
